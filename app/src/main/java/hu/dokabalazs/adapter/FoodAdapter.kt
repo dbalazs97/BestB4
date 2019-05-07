@@ -8,6 +8,8 @@ import android.widget.TextView
 import hu.dokabalazs.R
 import hu.dokabalazs.model.Food
 import kotlinx.android.synthetic.main.food_item_row.view.*
+import java.text.SimpleDateFormat
+import java.util.*
 
 class FoodAdapter(private val items: Array<Food>) : RecyclerView.Adapter<FoodAdapter.ViewHolder>() {
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -26,8 +28,8 @@ class FoodAdapter(private val items: Array<Food>) : RecyclerView.Adapter<FoodAda
         val (_, name, quantity, expiryDate) = items[position]
         holder.name.text = name
         holder.quantity.text = quantity
-        holder.bestBefore.text = expiryDate.toString()
-        holder.expiry.text = expiryDate.toString()
+        holder.bestBefore.text = SimpleDateFormat("yyyy. MM. dd.", Locale.GERMAN).format(expiryDate)
+        holder.expiry.text = SimpleDateFormat("yyyy. MM. dd.", Locale.GERMAN).format(expiryDate)
     }
 
     override fun getItemCount() = items.size

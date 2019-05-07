@@ -6,7 +6,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="@dimen/item_margin"
->
+        android:background="?android:attr/selectableItemBackground"
+        android:clickable="true"
+        android:focusable="true">
 
     <TextView
             android:id="@+id/food_item_quantity"
@@ -33,7 +35,7 @@
             android:id="@+id/food_item_image"
             android:layout_width="64dp"
             android:layout_height="64dp"
-            android:layout_marginStart="@dimen/item_margin"
+            android:layout_marginStart="4dp"
             android:contentDescription="@string/food_item_icon_description"
             android:src="@android:drawable/ic_menu_my_calendar"
             app:layout_constraintStart_toStartOf="parent"
@@ -44,7 +46,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
-            android:layout_marginEnd="16dp"
+            android:layout_marginEnd="8dp"
             android:text="@string/food_item_best_before_placeholder"
             android:textSize="18sp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -55,7 +57,7 @@
             android:layout_width="wrap_content"
             android:layout_height="0dp"
             android:layout_marginTop="8dp"
-            android:layout_marginEnd="@dimen/item_margin"
+            android:layout_marginEnd="8dp"
             android:text="@string/food_item_expiry_placeholder"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/food_item_best_before"/>
