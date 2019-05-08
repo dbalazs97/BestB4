@@ -1,9 +1,11 @@
 package hu.dokabalazs.adapter
 
+import android.graphics.Bitmap
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import hu.dokabalazs.R
 import hu.dokabalazs.model.Food
@@ -17,6 +19,7 @@ class FoodAdapter(private val items: Array<Food>) : RecyclerView.Adapter<FoodAda
 		val quantity: TextView = itemView.food_item_quantity
 		val bestBefore: TextView = itemView.food_item_best_before
 		val expiry: TextView = itemView.food_item_expiry
+		val thumbnail: ImageView = itemView.food_item_image
 	}
 
 	override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -25,12 +28,20 @@ class FoodAdapter(private val items: Array<Food>) : RecyclerView.Adapter<FoodAda
 	}
 
 	override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-		val (_, name, quantity, expiryDate) = items[position]
-		holder.name.text = name
-		holder.quantity.text = quantity
-		holder.bestBefore.text = SimpleDateFormat("yyyy. MM. dd.", Locale.GERMAN).format(expiryDate)
-		holder.expiry.text = SimpleDateFormat("yyyy. MM. dd.", Locale.GERMAN).format(expiryDate)
+		val (_, name, quantity, expiryDate, thumbnail) = items[position]
+		with(holder) {
+			this.name.text = name
+			this.quantity.text = quantity
+			this.bestBefore.text = SimpleDateFormat("yyyy. MM. dd.", Locale.GERMAN).format(expiryDate)
+			this.expiry.text = SimpleDateFormat("yyyy. MM. dd.", Locale.GERMAN).format(expiryDate)
+			thumbnail?.let { this.thumbnail.setImageBitmap(it) }
+		}
 	}
 
 	override fun getItemCount() = items.size
+
+	fun setImage(position: Int, image: Bitmap) {
+		items[position].thumbnail = image
+		notifyItemChanged(position)
+	}
 }
