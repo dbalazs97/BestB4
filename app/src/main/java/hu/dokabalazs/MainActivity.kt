@@ -10,6 +10,7 @@ import android.support.v7.widget.RecyclerView
 import android.view.Menu
 import android.view.MenuItem
 import hu.dokabalazs.adapter.FoodAdapter
+import hu.dokabalazs.db.FoodDatabase
 import hu.dokabalazs.db.typeconverter.BitmapTypeConverter
 import hu.dokabalazs.model.Food
 import kotlinx.android.synthetic.main.activity_main.*
@@ -26,13 +27,16 @@ class MainActivity : AppCompatActivity() {
 		setContentView(R.layout.activity_main)
 		setSupportActionBar(toolbar)
 
+		// Initialize the database with a context
+		FoodDatabase[this@MainActivity]
+
 		BitmapTypeConverter.context = this
 
 		food_item_list.apply {
 			setHasFixedSize(true)
 			layoutManager = LinearLayoutManager(this@MainActivity)
 			adapter = FoodAdapter(
-				arrayOf(
+				listOf(
 					Food(1, "Milk", "10 litres", GregorianCalendar(2019, 5, 10).time, null),
 					Food(1, "Eggs", "15", GregorianCalendar(2019, 10, 15).time, null),
 					Food(1, "Salami", "750 grammes", GregorianCalendar(2020, 6, 27).time, null),

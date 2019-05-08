@@ -16,8 +16,12 @@ abstract class FoodDatabase : RoomDatabase() {
 
 	companion object {
 		private var instance: FoodDatabase? = null
-		fun getDatabase(context: Context): FoodDatabase? {
+		operator fun get(context: Context? = null): FoodDatabase {
 			if (instance == null) {
+
+				if (context == null)
+					throw IllegalArgumentException("If the database instance is not present a context is needed")
+
 				synchronized(FoodDatabase::class) {
 					instance = Room.databaseBuilder(
 						context.applicationContext,
@@ -26,9 +30,10 @@ abstract class FoodDatabase : RoomDatabase() {
 					)
 						.fallbackToDestructiveMigration()
 						.build()
+					return instance as FoodDatabase
 				}
 			}
-			return instance
+			return instance as FoodDatabase
 		}
 	}
 }
