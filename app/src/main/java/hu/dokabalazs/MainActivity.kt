@@ -3,6 +3,7 @@ package hu.dokabalazs
 import android.content.Intent
 import android.graphics.Bitmap
 import android.os.Bundle
+import android.os.Handler
 import android.provider.MediaStore
 import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
@@ -13,7 +14,9 @@ import hu.dokabalazs.adapter.FoodAdapter
 import hu.dokabalazs.db.FoodDatabase
 import hu.dokabalazs.db.typeconverter.BitmapTypeConverter
 import hu.dokabalazs.fragment.FoodListFragment
+import hu.dokabalazs.fragment.QRScannerFragment
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.content_main.*
 import kotlinx.android.synthetic.main.fragment_food_list.*
 
 
@@ -38,7 +41,7 @@ class MainActivity : AppCompatActivity() {
 
 		changeFragment(FoodListFragment())
 
-		fab.setOnClickListener { takeThumbnail() }
+		fab.setOnClickListener { changeFragment(QRScannerFragment()) }
 	}
 
 	override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -53,14 +56,17 @@ class MainActivity : AppCompatActivity() {
 		}
 	}
 
-	private fun changeFragment(fragment: Fragment) {
-		currentFragment = fragment
-		val fragmentTransaction = supportFragmentManager.beginTransaction()
+	fun changeFragment(fragment: Fragment) {
+		Handler().post {
+			currentFragment = fragment
+			val fragmentTransaction = supportFragmentManager.beginTransaction()
 
-		fragmentTransaction.apply {
-			addToBackStack(null)
-			replace(R.id.fragment_container, currentFragment)
-		}.commit()
+			fragmentTransaction.apply {
+				addToBackStack(null)
+				replace(R.id.fragment_container, currentFragment)
+			}.commit()
+			supportFragmentManager.executePendingTransactions()
+		}
 	}
 
 	private fun takeThumbnail() {
