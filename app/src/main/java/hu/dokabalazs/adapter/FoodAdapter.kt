@@ -8,12 +8,14 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import hu.dokabalazs.R
+import hu.dokabalazs.db.FoodDatabase
 import hu.dokabalazs.model.Food
 import kotlinx.android.synthetic.main.food_item_row.view.*
 import java.text.SimpleDateFormat
 import java.util.*
+import kotlin.concurrent.thread
 
-class FoodAdapter(private val items: Array<Food>) : RecyclerView.Adapter<FoodAdapter.ViewHolder>() {
+class FoodAdapter(private var items: List<Food>) : RecyclerView.Adapter<FoodAdapter.ViewHolder>() {
 	inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 		val name: TextView = itemView.food_item_name
 		val quantity: TextView = itemView.food_item_quantity
@@ -43,5 +45,26 @@ class FoodAdapter(private val items: Array<Food>) : RecyclerView.Adapter<FoodAda
 	fun setImage(position: Int, image: Bitmap) {
 		items[position].thumbnail = image
 		notifyItemChanged(position)
+	}
+
+	fun addItems(vararg food: Food) {
+		items = items + food
+		thread { FoodDatabase.get().foodDao().insertAll(food) }
+		notifyItemRangeInserted(items.size - food.size, food.size)
+	}
+
+	fun deleteAt(position: Int) {
+		val food = items[position]
+		items = items.filterIndexed { i, _ -> i != position }
+		thread { FoodDatabase.get().foodDao().deleteAll(food) }
+		notifyItemRemoved(position)
+	}
+
+	fun replaceWith(old: Food, new: Food) {
+		items = items.map { if (it == old) new else it }
+		thread {
+			FoodDatabase.get().foodDao().deleteAll(old)
+			FoodDatabase.get().foodDao().insert(new)
+		}
 	}
 }

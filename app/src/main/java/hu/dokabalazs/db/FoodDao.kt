@@ -13,4 +13,7 @@ interface FoodDao {
 
 	@Query("SELECT * FROM food ORDER BY expiryDate ASC")
 	fun getAllFoods(): List<Food>
+
+	@Insert(onConflict = OnConflictStrategy.REPLACE)
+	fun insertAll(food: Array<out Food>)
 }
