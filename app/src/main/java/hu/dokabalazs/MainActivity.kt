@@ -41,7 +41,7 @@ class MainActivity : AppCompatActivity() {
 
 		changeFragment(FoodListFragment())
 
-		fab.setOnClickListener { changeFragment(QRScannerFragment()) }
+		fab.setOnClickListener { changeFragment(QRScannerFragment(), false) }
 	}
 
 	override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -56,7 +56,13 @@ class MainActivity : AppCompatActivity() {
 		}
 	}
 
-	fun changeFragment(fragment: Fragment) {
+	fun changeFragment(fragment: Fragment, showFab: Boolean = true) {
+
+		when {
+			showFab -> fab.show()
+			!showFab -> fab.hide()
+		}
+
 		Handler().post {
 			currentFragment = fragment
 			val fragmentTransaction = supportFragmentManager.beginTransaction()
