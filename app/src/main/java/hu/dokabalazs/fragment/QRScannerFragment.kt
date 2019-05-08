@@ -33,11 +33,17 @@ class QRScannerFragment : Fragment() {
 			) {
 				qr_scanner.setResultHandler {
 					Toast.makeText(activity, it.text, Toast.LENGTH_LONG).show()
+					qr_scanner.stopCamera()
 					navigateBack()
 				}
 				qr_scanner.startCamera()
 			}
 		}
+	}
+
+	override fun onPause() {
+		super.onPause()
+		qr_scanner.stopCamera()
 	}
 
 	private fun navigateBackFailed(view: View?) {
