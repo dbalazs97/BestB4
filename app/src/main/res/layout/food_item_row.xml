@@ -37,7 +37,7 @@
             android:layout_height="64dp"
             android:layout_marginStart="4dp"
             android:contentDescription="@string/food_item_icon_description"
-            android:src="@android:drawable/ic_menu_my_calendar"
+            android:src="@drawable/ic_food"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"/>
 

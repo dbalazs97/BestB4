@@ -10,6 +10,7 @@ import android.widget.TextView
 import hu.dokabalazs.R
 import hu.dokabalazs.db.FoodDatabase
 import hu.dokabalazs.model.Food
+import hu.dokabalazs.util.diffAsString
 import kotlinx.android.synthetic.main.food_item_row.view.*
 import java.text.SimpleDateFormat
 import java.util.*
@@ -35,7 +36,7 @@ class FoodAdapter(private var items: List<Food>) : RecyclerView.Adapter<FoodAdap
 			this.name.text = name
 			this.quantity.text = quantity
 			this.bestBefore.text = SimpleDateFormat("yyyy. MM. dd.", Locale.GERMAN).format(expiryDate)
-			this.expiry.text = SimpleDateFormat("yyyy. MM. dd.", Locale.GERMAN).format(expiryDate)
+			this.expiry.text = diffAsString(Date(), expiryDate)
 			thumbnail?.let { this.thumbnail.setImageBitmap(it) }
 		}
 	}

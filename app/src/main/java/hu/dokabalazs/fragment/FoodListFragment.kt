@@ -16,7 +16,12 @@ import java.util.*
 class FoodListFragment : Fragment() {
 
 	override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-		return inflater.inflate(R.layout.fragment_new_food, container, false)
+		return inflater.inflate(R.layout.fragment_food_list, container, false)
+	}
+
+	override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+		super.onViewCreated(view, savedInstanceState)
+		initList()
 	}
 
 	private fun initList() {
