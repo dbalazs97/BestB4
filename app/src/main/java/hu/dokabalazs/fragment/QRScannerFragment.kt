@@ -8,7 +8,6 @@ import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import com.livinglifetechway.quickpermissions_kotlin.runWithPermissions
 import com.livinglifetechway.quickpermissions_kotlin.util.QuickPermissionsOptions
 import hu.dokabalazs.MainActivity
@@ -32,9 +31,8 @@ class QRScannerFragment : Fragment() {
 				)
 			) {
 				qr_scanner.setResultHandler {
-					Toast.makeText(activity, it.text, Toast.LENGTH_LONG).show()
 					qr_scanner.stopCamera()
-					navigateBack()
+					navigateBack(it.text)
 				}
 				qr_scanner.startCamera()
 			}
@@ -48,10 +46,13 @@ class QRScannerFragment : Fragment() {
 
 	private fun navigateBackFailed(view: View?) {
 		view?.let { Snackbar.make(it, "Camera permission is denied", 3000).show() }
-		navigateBack()
+		(activity as MainActivity).changeFragment(FoodListFragment(), backStack = false, showFab = true)
 	}
 
-	private fun navigateBack() {
-		(activity as MainActivity).changeFragment(FoodListFragment())
+	private fun navigateBack(barcode: String) {
+		val fragment = NewFoodFragment()
+		fragment.arguments = Bundle()
+		fragment.arguments!!.putString("barcode", barcode)
+		(activity as MainActivity).changeFragment(fragment, backStack = true, showFab = false)
 	}
 }
