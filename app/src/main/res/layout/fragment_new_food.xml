@@ -1,10 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<android.support.constraint.ConstraintLayout
 		xmlns:android="http://schemas.android.com/apk/res/android"
+		xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:tools="http://schemas.android.com/tools"
 		android:orientation="vertical"
 		android:layout_width="match_parent"
 		android:layout_height="match_parent">
-	<ScrollView android:layout_width="match_parent" android:layout_height="match_parent">
+	<ScrollView android:layout_width="match_parent" android:layout_height="0dp" android:id="@+id/newfood_scroll_view"
+	            tools:layout_editor_absoluteX="8dp" android:layout_marginBottom="8dp"
+	            app:layout_constraintBottom_toTopOf="@+id/newfood_save_button"
+	            app:layout_constraintTop_toTopOf="parent">
 		<LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
 		              android:orientation="vertical">
 			<EditText
@@ -14,7 +18,7 @@
 					android:ems="10"
 					android:id="@+id/newfood_qr"
 					android:layout_margin="8dp"
-					android:hint="Barcode"
+					android:hint="@string/newfood_barcode"
 					android:enabled="false"
 			/>
 			<LinearLayout
@@ -29,7 +33,7 @@
 						android:scaleType="fitCenter"
 						android:layout_margin="8dp"
 						android:src="@drawable/ic_food"
-						android:contentDescription="Image"/>
+						android:contentDescription="@string/newfood_image"/>
 				<EditText
 						android:layout_width="312dp"
 						android:layout_height="wrap_content"
@@ -37,7 +41,7 @@
 						android:ems="10"
 						android:id="@+id/newfood_name"
 						android:layout_margin="8dp"
-						android:hint="Name"/>
+						android:hint="@string/newfood_name"/>
 			</LinearLayout>
 			<EditText
 					android:layout_width="395dp"
@@ -46,9 +50,9 @@
 					android:ems="10"
 					android:id="@+id/newfood_quantity"
 					android:layout_margin="8dp"
-					android:hint="Quantity (eq. 1 kg, 300 ml)"/>
+					android:hint="@string/newfood_quantity"/>
 			<TextView
-					android:text="Expiry date"
+					android:text="@string/newfood_expiry_date"
 					android:layout_width="match_parent"
 					android:layout_height="wrap_content"
 					android:layout_margin="8dp"
@@ -64,4 +68,11 @@
 					android:alwaysDrawnWithCache="false" android:datePickerMode="spinner"/>
 		</LinearLayout>
 	</ScrollView>
-</LinearLayout>
+	<Button
+			android:text="@string/newfood_save_button"
+			android:layout_width="match_parent"
+			android:layout_height="0dp"
+			android:id="@+id/newfood_save_button"
+			app:layout_constraintBottom_toBottomOf="parent" android:backgroundTint="@color/colorPrimary"
+			android:textColor="@android:color/white"/>
+</android.support.constraint.ConstraintLayout>

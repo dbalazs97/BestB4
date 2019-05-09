@@ -6,4 +6,10 @@
 	<string name="food_item_name_placeholder">Milk</string>
 	<string name="food_item_best_before_placeholder">2019. 06. 07.</string>
 	<string name="food_item_expiry_placeholder">2 weeks 10 days</string>
+	<string name="newfood_barcode">Barcode</string>
+	<string name="newfood_image">New Food Image</string>
+	<string name="newfood_name">Name</string>
+	<string name="newfood_quantity">Quantity (eq. 1 kg, 300 ml)</string>
+	<string name="newfood_expiry_date">Expiry date</string>
+	<string name="newfood_save_button">Save</string>
 </resources>
