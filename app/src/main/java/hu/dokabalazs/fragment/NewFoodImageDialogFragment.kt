@@ -11,13 +11,14 @@ import android.view.LayoutInflater
 import android.view.View
 import hu.dokabalazs.R
 import hu.dokabalazs.adapter.FoodImageAdapter
+import hu.dokabalazs.util.FragmentStore
 
 
 class NewFoodImageDialogFragment : DialogFragment() {
 
 	companion object {
 		fun getInstance(selectedImage: Int = 0, closeListener: ((Int) -> Unit)? = null): NewFoodImageDialogFragment {
-			val dialog = NewFoodImageDialogFragment()
+			val dialog = FragmentStore.newFoodImageDialogFragment
 			dialog.arguments = Bundle()
 			dialog.arguments!!.putInt("selectedImage", selectedImage)
 			dialog.closeListener = closeListener
@@ -35,9 +36,7 @@ class NewFoodImageDialogFragment : DialogFragment() {
 			.setPositiveButton(R.string.ok) { _, _ ->
 				closeListener?.let { it(foodImageAdapter.getSelectedResource()) }
 			}
-			.setNegativeButton(R.string.cancel) { _, _ ->
-
-			}
+			.setNegativeButton(R.string.cancel, null)
 			.create()
 	}
 

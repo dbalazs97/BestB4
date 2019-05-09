@@ -12,6 +12,7 @@ import com.livinglifetechway.quickpermissions_kotlin.runWithPermissions
 import com.livinglifetechway.quickpermissions_kotlin.util.QuickPermissionsOptions
 import hu.dokabalazs.MainActivity
 import hu.dokabalazs.R
+import hu.dokabalazs.util.FragmentStore
 import kotlinx.android.synthetic.main.fragment_qrscanner.*
 
 class QRScannerFragment : Fragment() {
@@ -46,11 +47,11 @@ class QRScannerFragment : Fragment() {
 
 	private fun navigateBackFailed(view: View?) {
 		view?.let { Snackbar.make(it, "Camera permission is denied", 3000).show() }
-		(activity as MainActivity).changeFragment(FoodListFragment(), backStack = false, showFab = true)
+		(activity as MainActivity).changeFragment(FragmentStore.foodListFragment, backStack = false, showFab = true)
 	}
 
 	private fun navigateBack(barcode: String) {
-		val fragment = NewFoodFragment()
+		val fragment = FragmentStore.newFoodFragment
 		fragment.arguments = Bundle()
 		fragment.arguments!!.putString("barcode", barcode)
 		(activity as MainActivity).changeFragment(fragment, backStack = true, showFab = false)

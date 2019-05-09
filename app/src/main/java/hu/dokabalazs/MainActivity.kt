@@ -13,8 +13,7 @@ import android.view.MenuItem
 import hu.dokabalazs.adapter.FoodAdapter
 import hu.dokabalazs.db.FoodDatabase
 import hu.dokabalazs.db.typeconverter.BitmapTypeConverter
-import hu.dokabalazs.fragment.FoodListFragment
-import hu.dokabalazs.fragment.QRScannerFragment
+import hu.dokabalazs.util.FragmentStore
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.content_main.*
 import kotlinx.android.synthetic.main.fragment_food_list.*
@@ -38,9 +37,9 @@ class MainActivity : AppCompatActivity() {
 
 		BitmapTypeConverter.context = this
 
-		changeFragment(FoodListFragment(), backStack = false)
+		changeFragment(FragmentStore.foodListFragment, backStack = false)
 
-		fab.setOnClickListener { changeFragment(QRScannerFragment(), showFab = false) }
+		fab.setOnClickListener { changeFragment(FragmentStore.qrScannerFragment, showFab = false) }
 	}
 
 	override fun onCreateOptionsMenu(menu: Menu): Boolean {
