@@ -12,4 +12,8 @@
 	<string name="newfood_quantity">Quantity (eq. 1 kg, 300 ml)</string>
 	<string name="newfood_expiry_date">Expiry date</string>
 	<string name="newfood_save_button">Save</string>
+	<string name="new_food_image_title">Select new food icon</string>
+	<string name="ok">OK</string>
+	<string name="cancel">Cancel</string>
+	<string name="new_food_icon_desc">New food icon</string>
 </resources>

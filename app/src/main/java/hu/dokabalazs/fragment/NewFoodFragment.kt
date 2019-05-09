@@ -12,6 +12,8 @@ import java.util.*
 
 class NewFoodFragment : Fragment() {
 
+	private var imageResource: Int = R.drawable.food
+
 	override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 		return inflater.inflate(R.layout.fragment_new_food, container, false)
 	}
@@ -26,6 +28,12 @@ class NewFoodFragment : Fragment() {
 
 		newfood_expiry_date.minDate = GregorianCalendar().timeInMillis
 		newfood_save_button.setOnClickListener { saveNewFood() }
+		newfood_image_selector.setOnClickListener {
+			NewFoodImageDialogFragment.getInstance(
+				selectedImage = imageResource,
+				closeListener = { newfood_image_selector.setImageResource(it); imageResource = it }
+			).show(activity?.supportFragmentManager, "IMAGE_DIALOG")
+		}
 	}
 
 
@@ -37,11 +45,11 @@ class NewFoodFragment : Fragment() {
 		val expiryDay = newfood_expiry_date.dayOfMonth
 
 		when {
-			name.length < 0 ->
+			name.isEmpty() ->
 				view?.let { Snackbar.make(it, "The name can not be empty", 3000).show() }
-			quantity.length < 0 ->
+			quantity.isEmpty() ->
 				view?.let { Snackbar.make(it, "The quantity can not be empty", 3000).show() }
-			GregorianCalendar(expiryYear, expiryMonth, expiryDay) < GregorianCalendar() ->
+			GregorianCalendar(expiryYear, expiryMonth, expiryDay) <= GregorianCalendar() ->
 				view?.let { Snackbar.make(it, "Can not put in expired food", 3000).show() }
 			else -> return true
 		}

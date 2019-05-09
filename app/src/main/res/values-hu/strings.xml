@@ -7,4 +7,8 @@
 	<string name="newfood_name">Név</string>
 	<string name="newfood_quantity">Mennyiség (pl. 1kg, 300ml)</string>
 	<string name="newfood_save_button">Mentés</string>
+	<string name="new_food_image_title">Válaszd ki az ikont</string>
+	<string name="cancel">Mégse</string>
+	<string name="ok">OK</string>
+	<string name="new_food_icon_desc">Új étel ikonja</string>
 </resources>

@@ -7,4 +7,8 @@
 	<string name="newfood_name">Nom</string>
 	<string name="newfood_quantity">Quantité (ex. 1kg, 300ml)</string>
 	<string name="newfood_save_button">Sauvegarder</string>
+	<string name="new_food_image_title">Choisissez un icon</string>
+	<string name="cancel">Annuler</string>
+	<string name="ok">OK</string>
+	<string name="new_food_icon_desc">Icon de nouvel alimantaire</string>
 </resources>
