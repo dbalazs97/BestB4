@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="app_name">BestB4</string>
+	<string name="action_settings">Beállítások</string>
+	<string name="newfood_barcode">Vonalkód</string>
+	<string name="newfood_expiry_date">Lejárati dátum</string>
+	<string name="newfood_name">Név</string>
+	<string name="newfood_quantity">Mennyiség (pl. 1kg, 300ml)</string>
+	<string name="newfood_save_button">Mentés</string>
+</resources>
