@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+		xmlns:android="http://schemas.android.com/apk/res/android"
+		android:orientation="vertical"
+		android:layout_width="match_parent"
+		android:layout_height="match_parent">
+	<ScrollView android:layout_width="match_parent" android:layout_height="match_parent">
+		<LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+		              android:orientation="vertical">
+			<EditText
+					android:layout_width="395dp"
+					android:layout_height="wrap_content"
+					android:inputType="number"
+					android:ems="10"
+					android:id="@+id/newfood_qr"
+					android:layout_margin="8dp"
+					android:hint="Barcode"
+					android:enabled="false"
+			/>
+			<LinearLayout
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:orientation="horizontal"
+					android:gravity="center">
+				<ImageButton
+						android:layout_width="75dp"
+						android:layout_height="74dp"
+						android:id="@+id/newfood_image_selector"
+						android:scaleType="fitCenter"
+						android:layout_margin="8dp"
+						android:src="@drawable/ic_food"
+						android:contentDescription="Image"/>
+				<EditText
+						android:layout_width="312dp"
+						android:layout_height="wrap_content"
+						android:inputType="textNoSuggestions"
+						android:ems="10"
+						android:id="@+id/newfood_name"
+						android:layout_margin="8dp"
+						android:hint="Name"/>
+			</LinearLayout>
+			<EditText
+					android:layout_width="395dp"
+					android:layout_height="wrap_content"
+					android:inputType="textShortMessage"
+					android:ems="10"
+					android:id="@+id/newfood_quantity"
+					android:layout_margin="8dp"
+					android:hint="Quantity (eq. 1 kg, 300 ml)"/>
+			<TextView
+					android:text="Expiry date"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:layout_margin="8dp"
+					android:textSize="18sp"/>
+			<DatePicker
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:inputType="date"
+					android:ems="10"
+					android:layout_margin="8dp"
+					android:layout_gravity="center"
+					android:id="@+id/newfood_expiry_date" android:calendarViewShown="false"
+					android:alwaysDrawnWithCache="false" android:datePickerMode="spinner"/>
+		</LinearLayout>
+	</ScrollView>
+</LinearLayout>

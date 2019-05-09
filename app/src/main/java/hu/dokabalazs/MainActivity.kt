@@ -22,7 +22,6 @@ import kotlinx.android.synthetic.main.fragment_food_list.*
 
 class MainActivity : AppCompatActivity() {
 
-	private var firstRun: Boolean = true
 	private lateinit var currentFragment: Fragment
 
 	companion object {
@@ -39,9 +38,9 @@ class MainActivity : AppCompatActivity() {
 
 		BitmapTypeConverter.context = this
 
-		changeFragment(FoodListFragment())
+		changeFragment(FoodListFragment(), backStack = false)
 
-		fab.setOnClickListener { changeFragment(QRScannerFragment(), false) }
+		fab.setOnClickListener { changeFragment(QRScannerFragment(), showFab = false) }
 	}
 
 	override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -56,7 +55,7 @@ class MainActivity : AppCompatActivity() {
 		}
 	}
 
-	fun changeFragment(fragment: Fragment, showFab: Boolean = true) {
+	fun changeFragment(fragment: Fragment, backStack: Boolean = true, showFab: Boolean = true) {
 
 		when {
 			showFab -> fab.show()
@@ -68,7 +67,7 @@ class MainActivity : AppCompatActivity() {
 			val fragmentTransaction = supportFragmentManager.beginTransaction()
 
 			fragmentTransaction.apply {
-				addToBackStack(null)
+				if (backStack) addToBackStack(null)
 				replace(R.id.fragment_container, currentFragment)
 			}.commit()
 			supportFragmentManager.executePendingTransactions()
