@@ -2,7 +2,7 @@
 <resources>
 	<string name="app_name">BestB4</string>
 	<string name="action_settings">Paramètres</string>
-	<string name="newfood_barcode">" Code à barres"</string>
+	<string name="newfood_barcode">Code à barres</string>
 	<string name="newfood_expiry_date">À consommer de préférence avant</string>
 	<string name="newfood_name">Nom</string>
 	<string name="newfood_quantity">Quantité (ex. 1kg, 300ml)</string>
