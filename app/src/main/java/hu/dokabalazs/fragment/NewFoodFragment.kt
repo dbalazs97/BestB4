@@ -68,7 +68,7 @@ class NewFoodFragment : Fragment() {
 					name,
 					quantity,
 					GregorianCalendar(expiryYear, expiryMonth, expiryDay).time,
-					ResourceBinding.resources[imageResource] ?: R.drawable.food
+					ResourceBinding[imageResource] ?: R.drawable.food
 				)
 			)
 

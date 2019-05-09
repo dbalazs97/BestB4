@@ -37,9 +37,7 @@ class FoodAdapter(private var items: List<Food>) : RecyclerView.Adapter<FoodAdap
 			this.quantity.text = quantity
 			this.bestBefore.text = SimpleDateFormat("yyyy. MM. dd.", Locale.GERMAN).format(expiryDate)
 			this.expiry.text = diffAsString(Date(), expiryDate)
-			this.thumbnail.setImageResource(
-				ResourceBinding.resources.entries.find { it.value == thumbnail }?.key ?: R.drawable.food
-			)
+			this.thumbnail.setImageResource(ResourceBinding(thumbnail) ?: R.drawable.food)
 		}
 	}
 
