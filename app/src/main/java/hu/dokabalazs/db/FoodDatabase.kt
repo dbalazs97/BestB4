@@ -9,7 +9,7 @@ import hu.dokabalazs.db.typeconverter.BitmapTypeConverter
 import hu.dokabalazs.db.typeconverter.DateTypeConverter
 import hu.dokabalazs.model.Food
 
-@Database(entities = arrayOf(Food::class), version = 1, exportSchema = false)
+@Database(entities = [Food::class], version = 2, exportSchema = false)
 @TypeConverters(value = [DateTypeConverter::class, BitmapTypeConverter::class])
 abstract class FoodDatabase : RoomDatabase() {
 	abstract fun foodDao(): FoodDao

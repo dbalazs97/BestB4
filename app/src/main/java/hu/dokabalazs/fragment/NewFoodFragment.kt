@@ -6,7 +6,11 @@ import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import hu.dokabalazs.MainActivity
 import hu.dokabalazs.R
+import hu.dokabalazs.model.Food
+import hu.dokabalazs.util.FragmentStore
+import hu.dokabalazs.util.ResourceBinding
 import kotlinx.android.synthetic.main.fragment_new_food.*
 import java.util.*
 
@@ -37,19 +41,13 @@ class NewFoodFragment : Fragment() {
 	}
 
 
-	private fun validateFields(): Boolean {
-		val name = newfood_name.text
-		val quantity = newfood_quantity.text
-		val expiryYear = newfood_expiry_date.year
-		val expiryMonth = newfood_expiry_date.month
-		val expiryDay = newfood_expiry_date.dayOfMonth
-
+	private fun validateFields(name: String, quantity: String, expiry: Triple<Int, Int, Int>): Boolean {
 		when {
 			name.isEmpty() ->
 				view?.let { Snackbar.make(it, "The name can not be empty", 3000).show() }
 			quantity.isEmpty() ->
 				view?.let { Snackbar.make(it, "The quantity can not be empty", 3000).show() }
-			GregorianCalendar(expiryYear, expiryMonth, expiryDay) <= GregorianCalendar() ->
+			GregorianCalendar(expiry.first, expiry.second, expiry.third) <= GregorianCalendar() ->
 				view?.let { Snackbar.make(it, "Can not put in expired food", 3000).show() }
 			else -> return true
 		}
@@ -57,8 +55,24 @@ class NewFoodFragment : Fragment() {
 	}
 
 	private fun saveNewFood() {
-		if (validateFields()) {
-			view?.let { Snackbar.make(it, "Values OK", 3000).show() }
+		val name = newfood_name.text.toString()
+		val quantity = newfood_quantity.text.toString()
+		val expiryYear = newfood_expiry_date.year
+		val expiryMonth = newfood_expiry_date.month
+		val expiryDay = newfood_expiry_date.dayOfMonth
+
+		if (validateFields(name, quantity, Triple(expiryYear, expiryMonth, expiryDay))) {
+			FragmentStore.foodListFragment.foodAdapter.addItems(
+				Food(
+					null,
+					name,
+					quantity,
+					GregorianCalendar(expiryYear, expiryMonth, expiryDay).time,
+					ResourceBinding.resources[imageResource] ?: R.drawable.food
+				)
+			)
+
+			(activity as MainActivity).changeFragment(FragmentStore.foodListFragment, backStack = false, showFab = true)
 		}
 	}
 }

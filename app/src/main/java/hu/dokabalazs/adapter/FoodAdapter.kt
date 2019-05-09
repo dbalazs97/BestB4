@@ -1,6 +1,5 @@
 package hu.dokabalazs.adapter
 
-import android.graphics.Bitmap
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
@@ -10,6 +9,7 @@ import android.widget.TextView
 import hu.dokabalazs.R
 import hu.dokabalazs.db.FoodDatabase
 import hu.dokabalazs.model.Food
+import hu.dokabalazs.util.ResourceBinding
 import hu.dokabalazs.util.diffAsString
 import kotlinx.android.synthetic.main.food_item_row.view.*
 import java.text.SimpleDateFormat
@@ -37,16 +37,13 @@ class FoodAdapter(private var items: List<Food>) : RecyclerView.Adapter<FoodAdap
 			this.quantity.text = quantity
 			this.bestBefore.text = SimpleDateFormat("yyyy. MM. dd.", Locale.GERMAN).format(expiryDate)
 			this.expiry.text = diffAsString(Date(), expiryDate)
-			thumbnail?.let { this.thumbnail.setImageBitmap(it) }
+			this.thumbnail.setImageResource(
+				ResourceBinding.resources.entries.find { it.value == thumbnail }?.key ?: R.drawable.food
+			)
 		}
 	}
 
 	override fun getItemCount() = items.size
-
-	fun setImage(position: Int, image: Bitmap) {
-		items[position].thumbnail = image
-		notifyItemChanged(position)
-	}
 
 	fun addItems(vararg food: Food) {
 		items = items + food

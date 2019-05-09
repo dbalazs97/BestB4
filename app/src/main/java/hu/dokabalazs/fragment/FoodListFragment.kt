@@ -8,12 +8,13 @@ import android.view.View
 import android.view.ViewGroup
 import hu.dokabalazs.R
 import hu.dokabalazs.adapter.FoodAdapter
-import hu.dokabalazs.model.Food
+import hu.dokabalazs.db.FoodDatabase
 import kotlinx.android.synthetic.main.fragment_food_list.*
-import java.util.*
+import kotlin.concurrent.thread
 
 
 class FoodListFragment : Fragment() {
+	lateinit var foodAdapter: FoodAdapter
 
 	override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 		return inflater.inflate(R.layout.fragment_food_list, container, false)
@@ -25,26 +26,16 @@ class FoodListFragment : Fragment() {
 	}
 
 	private fun initList() {
-		food_item_list.apply {
-			setHasFixedSize(true)
-			layoutManager = LinearLayoutManager(requireActivity())
-			adapter = FoodAdapter(
-				listOf(
-					Food(1, "Milk", "10 litres", GregorianCalendar(2019, 5, 10).time, null),
-					Food(1, "Eggs", "15", GregorianCalendar(2019, 10, 15).time, null),
-					Food(1, "Salami", "750 grammes", GregorianCalendar(2020, 6, 27).time, null),
-					Food(1, "Salami", "750 grammes", GregorianCalendar(2020, 6, 27).time, null),
-					Food(1, "Salami", "750 grammes", GregorianCalendar(2020, 6, 27).time, null),
-					Food(1, "Salami", "750 grammes", GregorianCalendar(2020, 6, 27).time, null),
-					Food(1, "Salami", "750 grammes", GregorianCalendar(2020, 6, 27).time, null),
-					Food(1, "Salami", "750 grammes", GregorianCalendar(2020, 6, 27).time, null),
-					Food(1, "Salami", "750 grammes", GregorianCalendar(2020, 6, 27).time, null),
-					Food(1, "Salami", "750 grammes", GregorianCalendar(2020, 6, 27).time, null),
-					Food(1, "Salami", "750 grammes", GregorianCalendar(2020, 6, 27).time, null),
-					Food(1, "Salami", "750 grammes", GregorianCalendar(2020, 6, 27).time, null),
-					Food(1, "Spread Butter", "500 grammes", GregorianCalendar(2021, 2, 11).time, null)
-				)
-			)
+		thread {
+			val foods = FoodDatabase.get().foodDao().getAllFoods()
+			foodAdapter = FoodAdapter(foods)
+			requireActivity().runOnUiThread {
+				food_item_list.apply {
+					setHasFixedSize(true)
+					layoutManager = LinearLayoutManager(requireActivity())
+					adapter = foodAdapter
+				}
+			}
 		}
 	}
 }
