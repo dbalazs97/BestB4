@@ -33,7 +33,7 @@ class MainActivity : AppCompatActivity() {
 
 		changeFragment(FragmentStore.foodListFragment, backStack = false)
 
-		fab.setOnClickListener { changeFragment(FragmentStore.qrScannerFragment, showFab = false) }
+		fab.setOnClickListener { changeFragment(FragmentStore.qrScannerFragment, backStack = true) }
 	}
 
 	override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -48,11 +48,15 @@ class MainActivity : AppCompatActivity() {
 		}
 	}
 
-	fun changeFragment(fragment: Fragment, backStack: Boolean = true, showFab: Boolean = true) {
+	fun showFab() {
+		fab.show()
+	}
+
+	fun changeFragment(fragment: Fragment, backStack: Boolean = true) {
 
 		when {
-			showFab -> fab.show()
-			!showFab -> fab.hide()
+			FragmentStore.fabState[fragment] ?: false -> fab.show()
+			!(FragmentStore.fabState[fragment] ?: false) -> fab.hide()
 		}
 
 		Handler().post {

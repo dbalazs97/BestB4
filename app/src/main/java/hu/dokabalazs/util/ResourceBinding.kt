@@ -3,7 +3,7 @@ package hu.dokabalazs.util
 import hu.dokabalazs.R
 
 object ResourceBinding {
-	val resources: Map<Int, Int> = mapOf(
+	private val resources: Map<Int, Int> = mapOf(
 		R.drawable.beer to 0,
 		R.drawable.bowl to 1,
 		R.drawable.carrot to 2,

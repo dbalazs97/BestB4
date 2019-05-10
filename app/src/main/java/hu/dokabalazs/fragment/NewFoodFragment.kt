@@ -72,7 +72,7 @@ class NewFoodFragment : Fragment() {
 				)
 			)
 
-			(activity as MainActivity).changeFragment(FragmentStore.foodListFragment, backStack = false, showFab = true)
+			(activity as MainActivity).changeFragment(FragmentStore.foodListFragment, backStack = false)
 		}
 	}
 }

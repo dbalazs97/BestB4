@@ -1,5 +1,6 @@
 package hu.dokabalazs.fragment
 
+import android.content.Context
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
@@ -8,6 +9,7 @@ import android.support.v7.widget.helper.ItemTouchHelper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import hu.dokabalazs.MainActivity
 import hu.dokabalazs.adapter.FoodAdapter
 import hu.dokabalazs.db.FoodDatabase
 import kotlinx.android.synthetic.main.fragment_food_list.*
@@ -24,6 +26,11 @@ class FoodListFragment : Fragment() {
 	override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 		super.onViewCreated(view, savedInstanceState)
 		initList()
+	}
+
+	override fun onAttach(context: Context?) {
+		super.onAttach(context)
+		(activity as MainActivity).showFab()
 	}
 
 	private fun initList() {

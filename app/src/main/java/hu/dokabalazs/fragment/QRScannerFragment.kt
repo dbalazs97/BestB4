@@ -47,13 +47,13 @@ class QRScannerFragment : Fragment() {
 
 	private fun navigateBackFailed(view: View?) {
 		view?.let { Snackbar.make(it, "Camera permission is denied", 3000).show() }
-		(activity as MainActivity).changeFragment(FragmentStore.foodListFragment, backStack = false, showFab = true)
+		(activity as MainActivity).changeFragment(FragmentStore.foodListFragment, backStack = false)
 	}
 
 	private fun navigateBack(barcode: String) {
 		val fragment = FragmentStore.newFoodFragment
 		fragment.arguments = Bundle()
 		fragment.arguments!!.putString("barcode", barcode)
-		(activity as MainActivity).changeFragment(fragment, backStack = true, showFab = false)
+		(activity as MainActivity).changeFragment(fragment, backStack = true)
 	}
 }
