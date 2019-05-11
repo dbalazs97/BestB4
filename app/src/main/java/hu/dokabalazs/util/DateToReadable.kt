@@ -1,5 +1,6 @@
 package hu.dokabalazs.util
 
+import java.text.SimpleDateFormat
 import java.util.*
 import java.util.concurrent.TimeUnit
 import kotlin.collections.ArrayList
@@ -29,4 +30,8 @@ private fun diff(date1: Date, date2: Date): Map<TimeUnit, Long> {
 fun diffAsString(date1: Date, date2: Date): String {
 	val diff = diff(date1, date2)
 	return "${diff[TimeUnit.DAYS]} days ${diff[TimeUnit.HOURS]} hours"
+}
+
+fun dateAsReadable(date: Date): String {
+	return SimpleDateFormat("yyyy. MM. dd.", Locale.GERMAN).format(date)
 }

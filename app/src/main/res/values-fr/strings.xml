@@ -11,4 +11,7 @@
 	<string name="cancel">Annuler</string>
 	<string name="ok">OK</string>
 	<string name="new_food_icon_desc">Icon de nouvel alimantaire</string>
+	<string name="expiry_date">Date d\'expiration</string>
+	<string name="insertion_date">Date d\'insertion</string>
+	<string name="food_detail_progress_label">Progression</string>
 </resources>

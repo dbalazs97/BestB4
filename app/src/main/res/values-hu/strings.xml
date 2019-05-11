@@ -11,4 +11,7 @@
 	<string name="cancel">Mégse</string>
 	<string name="ok">OK</string>
 	<string name="new_food_icon_desc">Új étel ikonja</string>
+	<string name="expiry_date">Lejárati dátum</string>
+	<string name="insertion_date">Behelyezés ideje</string>
+	<string name="food_detail_progress_label">Állapot</string>
 </resources>

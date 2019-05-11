@@ -20,6 +20,6 @@ object ResourceBinding {
 		R.drawable.silverware to 12
 	)
 
-	operator fun get(resource: Int) = resources[resource]
-	operator fun invoke(resource: Int) = resources.entries.find { it.value == resource }?.key
+	operator fun get(resource: Int) = resources[resource] ?: 6
+	operator fun invoke(resource: Int) = resources.entries.find { it.value == resource }?.key ?: R.drawable.food
 }

@@ -36,6 +36,9 @@ dependencies {
 
 	implementation 'com.github.quickpermissions:quickpermissions-kotlin:0.4.0'
 
+	def work_version = "1.0.1"
+	implementation "android.arch.work:work-runtime-ktx:$work_version"
+
 	implementation 'me.dm7.barcodescanner:zxing:1.9.13'
 
 	testImplementation 'junit:junit:4.13-beta-2'

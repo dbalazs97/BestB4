@@ -64,11 +64,12 @@ class NewFoodFragment : Fragment() {
 		if (validateFields(name, quantity, Triple(expiryYear, expiryMonth, expiryDay))) {
 			FragmentStore.foodListFragment.foodAdapter.addItems(
 				Food(
-					null,
-					name,
-					quantity,
-					GregorianCalendar(expiryYear, expiryMonth, expiryDay).time,
-					ResourceBinding[imageResource] ?: R.drawable.food
+					id = null,
+					name = name,
+					quantity = quantity,
+					expiryDate = GregorianCalendar(expiryYear, expiryMonth, expiryDay).time,
+					insertDate = Date(),
+					thumbnail = ResourceBinding[imageResource]
 				)
 			)
 

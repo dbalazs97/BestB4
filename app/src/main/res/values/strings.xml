@@ -16,4 +16,10 @@
 	<string name="ok">OK</string>
 	<string name="cancel">Cancel</string>
 	<string name="new_food_icon_desc">New food icon</string>
+	<string name="food_detail_placeholder" translatable="false">Milk</string>
+	<string name="food_detail_quantity_placeholder" translatable="false">1 litre</string>
+	<string name="insertion_date">Insertion date</string>
+	<string name="expiry_date">Expiry date</string>
+	<string name="food_detail_progress_label">Progress</string>
+	<string name="food_notification_title">Your fridge\'s status</string>
 </resources>

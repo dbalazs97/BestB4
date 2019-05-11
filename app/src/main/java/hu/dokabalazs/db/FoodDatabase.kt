@@ -9,14 +9,14 @@ import hu.dokabalazs.db.typeconverter.BitmapTypeConverter
 import hu.dokabalazs.db.typeconverter.DateTypeConverter
 import hu.dokabalazs.model.Food
 
-@Database(entities = [Food::class], version = 2, exportSchema = false)
+@Database(entities = [Food::class], version = 3, exportSchema = false)
 @TypeConverters(value = [DateTypeConverter::class, BitmapTypeConverter::class])
 abstract class FoodDatabase : RoomDatabase() {
 	abstract fun foodDao(): FoodDao
 
 	companion object {
 		private var instance: FoodDatabase? = null
-		operator fun get(context: Context? = null): FoodDatabase {
+		operator fun invoke(context: Context? = null): FoodDatabase {
 			if (instance == null) {
 
 				if (context == null)
@@ -35,5 +35,7 @@ abstract class FoodDatabase : RoomDatabase() {
 			}
 			return instance as FoodDatabase
 		}
+
+		operator fun unaryPlus() = invoke().foodDao()
 	}
 }

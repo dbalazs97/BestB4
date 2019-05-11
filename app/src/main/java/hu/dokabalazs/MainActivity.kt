@@ -27,10 +27,13 @@ class MainActivity : AppCompatActivity() {
 		setSupportActionBar(toolbar)
 
 		// Initialize the database with a context
-		FoodDatabase[this@MainActivity]
+		FoodDatabase.invoke(this@MainActivity)
 
 		BitmapTypeConverter.context = this
 
+		FragmentStore.foodListFragment.onItemClickListener = {
+			changeFragment(FragmentStore.foodDetailFragment(it), backStack = true)
+		}
 		changeFragment(FragmentStore.foodListFragment, backStack = false)
 
 		fab.setOnClickListener { changeFragment(FragmentStore.qrScannerFragment, backStack = true) }
