@@ -22,4 +22,6 @@
 	<string name="expiry_date">Expiry date</string>
 	<string name="food_detail_progress_label">Progress</string>
 	<string name="food_notification_title">Your fridge\'s status</string>
+	<string name="expired_food_label">Expired food:</string>
+	<string name="almost_expired_food_label">Almost expired:</string>
 </resources>

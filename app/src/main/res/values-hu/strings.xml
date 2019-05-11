@@ -14,4 +14,7 @@
 	<string name="expiry_date">Lejárati dátum</string>
 	<string name="insertion_date">Behelyezés ideje</string>
 	<string name="food_detail_progress_label">Állapot</string>
+	<string name="food_notification_title">A hűtőd állapota</string>
+	<string name="expired_food_label">Lejárt ételek:</string>
+	<string name="almost_expired_food_label">Közel lejáratos:</string>
 </resources>

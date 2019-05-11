@@ -11,9 +11,10 @@ import hu.dokabalazs.MainActivity
 import hu.dokabalazs.R
 import hu.dokabalazs.db.typeconverter.BitmapTypeConverter.Companion.context
 import hu.dokabalazs.model.Food
+import hu.dokabalazs.util.FragmentStore
 
 
-internal class PlayerOnlineNotificationWorker(context: Context, workerParams: WorkerParameters) :
+internal class RottenFoodNotificationWorker(val context: Context, workerParams: WorkerParameters) :
 	Worker(context, workerParams) {
 
 	private fun prepareNotification(
@@ -21,10 +22,17 @@ internal class PlayerOnlineNotificationWorker(context: Context, workerParams: Wo
 		almostRottenFood: List<Food>,
 		rottenFood: List<Food>
 	): NotificationCompat.Builder {
+
+		val notificationLabel =
+			"""
+				|${context.getString(R.string.expired_food_label)} ${rottenFood.joinToString { it.name }}
+				|${context.getString(R.string.almost_expired_food_label)} ${almostRottenFood.joinToString { it.name }}
+			|""".trimMargin()
+
 		return NotificationCompat.Builder(context, CHANNEL_ID).apply {
 			setSmallIcon(R.mipmap.ic_launcher)
 			setContentTitle(context.getString(R.string.food_notification_title))
-			setContentText("")
+			setContentText(notificationLabel)
 			priority = NotificationCompat.PRIORITY_DEFAULT
 			setContentIntent(pendingIntent)
 			setAutoCancel(true)
@@ -32,17 +40,20 @@ internal class PlayerOnlineNotificationWorker(context: Context, workerParams: Wo
 	}
 
 	private fun showNotification(builder: NotificationCompat.Builder) {
-		val notificationManager = NotificationManagerCompat.from(context!!)
+		val notificationManager = NotificationManagerCompat.from(context)
 		notificationManager.cancelAll()
 		notificationManager.notify(Integer.parseInt(id.toString().substring(0, 6), 16), builder.build())
 	}
 
 	override fun doWork(): Result {
+		val almostRottenFood = FragmentStore.foodListFragment.foodAdapter.getAlmostRotten(1)
+		val rottenFood = FragmentStore.foodListFragment.foodAdapter.getRotten()
+		showNotification(prepareNotification(context, almostRottenFood, rottenFood))
 		return Result.success()
 	}
 
 	companion object {
-		private val CHANNEL_ID = "channel0"
+		private const val CHANNEL_ID = "bestb4_daily_channel"
 		private var pendingIntent: PendingIntent? = null
 
 		fun initNotifications() {

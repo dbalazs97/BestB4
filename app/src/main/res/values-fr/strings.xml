@@ -14,4 +14,7 @@
 	<string name="expiry_date">Date d\'expiration</string>
 	<string name="insertion_date">Date d\'insertion</string>
 	<string name="food_detail_progress_label">Progression</string>
+	<string name="food_notification_title">State de ton frigo</string>
+	<string name="expired_food_label">Nourriture expirée:</string>
+	<string name="almost_expired_food_label">Presque expiré:</string>
 </resources>
