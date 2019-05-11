@@ -74,11 +74,11 @@ class FoodAdapter(private var items: List<Food>) : RecyclerView.Adapter<FoodAdap
 		}
 	}
 
-	fun getRotten(): List<Food> {
+	fun getExpired(): List<Food> {
 		return items.filter { it.expiryDate <= Date() }
 	}
 
-	fun getAlmostRotten(daysBefore: Int): List<Food> {
+	fun getAlmostExpired(daysBefore: Int): List<Food> {
 		return items.filter {
 			Calendar.getInstance().apply {
 				time = it.expiryDate

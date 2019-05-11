@@ -14,19 +14,19 @@ import hu.dokabalazs.model.Food
 import hu.dokabalazs.util.FragmentStore
 
 
-internal class RottenFoodNotificationWorker(val context: Context, workerParams: WorkerParameters) :
+internal class ExpiredFoodNotificationWorker(val context: Context, workerParams: WorkerParameters) :
 	Worker(context, workerParams) {
 
 	private fun prepareNotification(
 		context: Context,
-		almostRottenFood: List<Food>,
-		rottenFood: List<Food>
+		almostExpiredFood: List<Food>,
+		expiredFood: List<Food>
 	): NotificationCompat.Builder {
 
 		val notificationLabel =
 			"""
-				|${context.getString(R.string.expired_food_label)} ${rottenFood.joinToString { it.name }}
-				|${context.getString(R.string.almost_expired_food_label)} ${almostRottenFood.joinToString { it.name }}
+				|${context.getString(R.string.expired_food_label)} ${expiredFood.joinToString { it.name }}
+				|${context.getString(R.string.almost_expired_food_label)} ${almostExpiredFood.joinToString { it.name }}
 			|""".trimMargin()
 
 		return NotificationCompat.Builder(context, CHANNEL_ID).apply {
@@ -46,9 +46,9 @@ internal class RottenFoodNotificationWorker(val context: Context, workerParams: 
 	}
 
 	override fun doWork(): Result {
-		val almostRottenFood = FragmentStore.foodListFragment.foodAdapter.getAlmostRotten(1)
-		val rottenFood = FragmentStore.foodListFragment.foodAdapter.getRotten()
-		showNotification(prepareNotification(context, almostRottenFood, rottenFood))
+		val almostExpiredFood = FragmentStore.foodListFragment.foodAdapter.getAlmostExpired(1)
+		val expiredFood = FragmentStore.foodListFragment.foodAdapter.getExpired()
+		showNotification(prepareNotification(context, almostExpiredFood, expiredFood))
 		return Result.success()
 	}
 
