@@ -13,5 +13,6 @@ data class Food(
 	val quantity: String,
 	val insertDate: Date,
 	val expiryDate: Date,
-	var thumbnail: Int
+	var thumbnail: Int,
+	val barcode: String
 ) : Serializable

@@ -8,7 +8,7 @@ import android.content.Context
 import hu.dokabalazs.db.typeconverter.DateTypeConverter
 import hu.dokabalazs.model.Food
 
-@Database(entities = [Food::class], version = 3, exportSchema = false)
+@Database(entities = [Food::class], version = 4, exportSchema = false)
 @TypeConverters(value = [DateTypeConverter::class])
 abstract class FoodDatabase : RoomDatabase() {
 	abstract fun foodDao(): FoodDao

@@ -27,4 +27,8 @@
 	<string name="notifications_preference">Notifications</string>
 	<string name="notifications_preference_desc">Daily notifications for the state of your fridge</string>
 	<string name="notifications_frequency_preference">Notify me before expiration (days)</string>
+	<string name="delete">Delete</string>
+	<string name="already_in_fridge_title">Barcode already in fridge</string>
+	<string name="already_in_fridge_desc">Would you like to delete this item or add an another?</string>
+	<string name="continue_text">Continue</string>
 </resources>

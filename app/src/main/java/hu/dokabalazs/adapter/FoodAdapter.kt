@@ -60,18 +60,11 @@ class FoodAdapter(private var items: List<Food>) : RecyclerView.Adapter<FoodAdap
 	}
 
 	fun deleteAt(position: Int) {
+		if (position < 0) return
 		val food = items[position]
 		items = items.filterIndexed { i, _ -> i != position }
 		thread { (+FoodDatabase).deleteAll(food) }
 		notifyItemRemoved(position)
-	}
-
-	fun replaceWith(old: Food, new: Food) {
-		items = items.map { if (it == old) new else it }
-		thread {
-			(+FoodDatabase).deleteAll(old)
-			(+FoodDatabase).insert(new)
-		}
 	}
 
 	fun getExpired(): List<Food> {
@@ -85,5 +78,13 @@ class FoodAdapter(private var items: List<Food>) : RecyclerView.Adapter<FoodAdap
 				add(Calendar.DATE, -daysBefore)
 			}.time <= Date()
 		}
+	}
+
+	fun hasItemWithCode(barcode: String): Boolean {
+		return items.find { it.barcode == barcode } != null
+	}
+
+	fun deleteBarcode(barcode: String) {
+		deleteAt(items.indexOfFirst { it.barcode == barcode })
 	}
 }

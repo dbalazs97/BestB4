@@ -20,4 +20,8 @@
 	<string name="notifications_preference">Notifications</string>
 	<string name="notifications_preference_desc">Daily notifications for the state of your fridge</string>
 	<string name="notifications_frequency_preference">Notify me before expiration (days)</string>
+	<string name="continue_text">Continue</string>
+	<string name="already_in_fridge_title">Cettte code a barres est déja dans le liste</string>
+	<string name="already_in_fridge_desc">Veuillez éffacer ou continuer?</string>
+	<string name="delete">Éffacer</string>
 </resources>

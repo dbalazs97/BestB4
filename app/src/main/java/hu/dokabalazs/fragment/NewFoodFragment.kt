@@ -3,6 +3,7 @@ package hu.dokabalazs.fragment
 import android.os.Bundle
 import android.support.design.widget.Snackbar
 import android.support.v4.app.Fragment
+import android.support.v7.app.AlertDialog
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,19 +15,30 @@ import hu.dokabalazs.util.ResourceBinding
 import kotlinx.android.synthetic.main.fragment_new_food.*
 import java.util.*
 
+
 class NewFoodFragment : Fragment() {
 
-	private var imageResource: Int = R.drawable.food
+	private var imageResource: Int = hu.dokabalazs.R.drawable.food
 
 	override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-		return inflater.inflate(R.layout.fragment_new_food, container, false)
+		return inflater.inflate(hu.dokabalazs.R.layout.fragment_new_food, container, false)
 	}
 
 	override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 		super.onViewCreated(view, savedInstanceState)
 		arguments?.let {
 			it["barcode"]?.let { barcode ->
-				newfood_qr.setText(barcode.toString())
+				val adapter = FragmentStore.foodListFragment.foodAdapter
+				if (adapter.hasItemWithCode(barcode.toString())) {
+					AlertDialog.Builder(requireContext())
+						.setTitle(getString(R.string.already_in_fridge_title))
+						.setMessage(getString(R.string.already_in_fridge_desc))
+						.setPositiveButton(R.string.delete) { _, _ -> adapter.deleteBarcode(barcode.toString()) }
+						.setNegativeButton(R.string.continue_text) { _, _ -> newfood_qr.setText(barcode.toString()) }
+						.show()
+				} else {
+					newfood_qr.setText(barcode.toString())
+				}
 			}
 		}
 
@@ -69,7 +81,8 @@ class NewFoodFragment : Fragment() {
 					quantity = quantity,
 					expiryDate = GregorianCalendar(expiryYear, expiryMonth, expiryDay).time,
 					insertDate = Date(),
-					thumbnail = ResourceBinding[imageResource]
+					thumbnail = ResourceBinding[imageResource],
+					barcode = newfood_qr.text.toString()
 				)
 			)
 

@@ -20,4 +20,8 @@
 	<string name="notifications_preference">Notifications</string>
 	<string name="notifications_preference_desc">Daily notifications for the state of your fridge</string>
 	<string name="notifications_frequency_preference">Notify me before expiration (days)</string>
+	<string name="continue_text">Folytatás</string>
+	<string name="already_in_fridge_title">Ez a vonalkód már az listában van</string>
+	<string name="already_in_fridge_desc">Töröljem vagy felveszed mégegyszer?</string>
+	<string name="delete">Törlés</string>
 </resources>
