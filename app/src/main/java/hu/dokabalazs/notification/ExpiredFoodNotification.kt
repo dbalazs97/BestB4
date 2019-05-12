@@ -7,13 +7,13 @@ import java.util.concurrent.TimeUnit
 
 
 object ExpiredFoodNotification {
-	private fun build(context: Context, minutes: Long) {
+	private fun build(context: Context, days: Long) {
 		ExpiredFoodNotificationWorker.initNotifications(context = context)
 
 		val notificationBuilder = PeriodicWorkRequest.Builder(
 			ExpiredFoodNotificationWorker::class.java,
-			minutes,
-			TimeUnit.MINUTES
+			days,
+			TimeUnit.DAYS
 		)
 
 		val notificationConstraints = Constraints.Builder().apply {
@@ -31,16 +31,7 @@ object ExpiredFoodNotification {
 		WorkManager.getInstance().enqueue(work)
 	}
 
-	fun setNotifications(context: Context, show: Boolean) {
-		if (show)
-			build(context, 15)
-		else
-			WorkManager.getInstance().cancelAllWork()
-	}
-
-	fun setNotificationFrequency(context: Context, freq: Long) {
-		WorkManager.getInstance().cancelAllWork()
-		// Prefs.putString("pref_freq", freq.toString())
-		build(context, 15)
+	fun enableNotifications(context: Context) {
+		build(context, 1)
 	}
 }

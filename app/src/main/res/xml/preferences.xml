@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+	<SwitchPreference
+			android:defaultValue="false"
+			android:title="@string/notifications_preference" android:key="notifications"
+			android:summary="@string/notifications_preference_desc"/>
+	<EditTextPreference
+			android:defaultValue="1"
+			android:selectAllOnFocus="true"
+			android:singleLine="true"
+			android:title="@string/notifications_frequency_preference" android:key="notify_before"
+			android:inputType="numberDecimal"/>
+</PreferenceScreen>

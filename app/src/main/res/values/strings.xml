@@ -24,4 +24,7 @@
 	<string name="food_notification_title">Your fridge\'s status</string>
 	<string name="expired_food_label">Expired food:</string>
 	<string name="almost_expired_food_label">Almost expired:</string>
+	<string name="notifications_preference">Notifications</string>
+	<string name="notifications_preference_desc">Daily notifications for the state of your fridge</string>
+	<string name="notifications_frequency_preference">Notify me before expiration (days)</string>
 </resources>

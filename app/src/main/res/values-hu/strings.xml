@@ -17,4 +17,7 @@
 	<string name="food_notification_title">A hűtőd állapota</string>
 	<string name="expired_food_label">Lejárt ételek:</string>
 	<string name="almost_expired_food_label">Közel lejáratos:</string>
+	<string name="notifications_preference">Notifications</string>
+	<string name="notifications_preference_desc">Daily notifications for the state of your fridge</string>
+	<string name="notifications_frequency_preference">Notify me before expiration (days)</string>
 </resources>

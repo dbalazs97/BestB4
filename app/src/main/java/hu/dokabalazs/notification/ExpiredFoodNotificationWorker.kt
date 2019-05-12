@@ -12,26 +12,30 @@ import androidx.work.WorkerParameters
 import hu.dokabalazs.MainActivity
 import hu.dokabalazs.R
 import hu.dokabalazs.model.Food
+import hu.dokabalazs.preferences.Settings
 import hu.dokabalazs.util.FragmentStore
 
 
 internal class ExpiredFoodNotificationWorker(val context: Context, workerParams: WorkerParameters) :
 	Worker(context, workerParams) {
 
-	fun prepareNotification(
+	private fun prepareNotification(
 		context: Context,
 		almostExpiredFood: List<Food>,
 		expiredFood: List<Food>
 	): NotificationCompat.Builder {
 
 		val notificationLabel =
-			"""
+			if (expiredFood.isEmpty() && almostExpiredFood.isEmpty())
+				"Everything is in good shape"
+			else
+				"""
 				|${context.getString(R.string.expired_food_label)} ${expiredFood.joinToString { it.name }}
 				|${context.getString(R.string.almost_expired_food_label)} ${almostExpiredFood.joinToString { it.name }}
 			|""".trimMargin()
 
 		return NotificationCompat.Builder(context, CHANNEL_ID).apply {
-			setSmallIcon(R.mipmap.ic_launcher)
+			setSmallIcon(R.drawable.ic_stat_icon)
 			setContentTitle(context.getString(R.string.food_notification_title))
 			setContentText(notificationLabel)
 			priority = NotificationCompat.PRIORITY_DEFAULT
@@ -52,7 +56,7 @@ internal class ExpiredFoodNotificationWorker(val context: Context, workerParams:
 		}
 	}
 
-	fun showNotification(context: Context, builder: NotificationCompat.Builder) {
+	private fun showNotification(context: Context, builder: NotificationCompat.Builder) {
 		val notificationManager: NotificationManager =
 			context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
 		notificationManager.cancelAll()
@@ -61,10 +65,15 @@ internal class ExpiredFoodNotificationWorker(val context: Context, workerParams:
 	}
 
 	override fun doWork(): Result {
-		val almostExpiredFood = FragmentStore.foodListFragment.foodAdapter.getAlmostExpired(1)
-		val expiredFood = FragmentStore.foodListFragment.foodAdapter.getExpired()
-		showNotification(context, prepareNotification(context, almostExpiredFood, expiredFood))
-		return Result.success()
+		return if (Settings.notifications) {
+			val almostExpiredFood =
+				FragmentStore.foodListFragment.foodAdapter.getAlmostExpired(Settings.notify_before.toIntOrNull() ?: 1)
+			val expiredFood = FragmentStore.foodListFragment.foodAdapter.getExpired()
+			showNotification(context, prepareNotification(context, almostExpiredFood, expiredFood))
+			Result.success()
+		} else {
+			Result.retry()
+		}
 	}
 
 	companion object {

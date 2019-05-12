@@ -4,10 +4,13 @@ import android.os.Bundle
 import android.os.Handler
 import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import com.chibatching.kotpref.Kotpref
 import hu.dokabalazs.db.FoodDatabase
 import hu.dokabalazs.notification.ExpiredFoodNotification
+import hu.dokabalazs.preferences.Settings
 import hu.dokabalazs.util.FragmentStore
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.content_main.*
@@ -36,8 +39,11 @@ class MainActivity : AppCompatActivity() {
 		// Set FAB click listener
 		fab.setOnClickListener { changeFragment(FragmentStore.qrScannerFragment, backStack = true) }
 
+		// Initialize preferences
+		Kotpref.init(this)
+
 		// Initialize notifications
-		ExpiredFoodNotification.setNotifications(this, true)
+		ExpiredFoodNotification.enableNotifications(this)
 	}
 
 	override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -47,7 +53,10 @@ class MainActivity : AppCompatActivity() {
 
 	override fun onOptionsItemSelected(item: MenuItem): Boolean {
 		return when (item.itemId) {
-			R.id.action_settings -> true
+			R.id.action_settings -> {
+				changeFragment(FragmentStore.settingsFragment, true)
+				true
+			}
 			else -> super.onOptionsItemSelected(item)
 		}
 	}
@@ -57,7 +66,6 @@ class MainActivity : AppCompatActivity() {
 	}
 
 	fun changeFragment(fragment: Fragment, backStack: Boolean = true) {
-
 		when {
 			FragmentStore.fabState[fragment] ?: false -> fab.show()
 			!(FragmentStore.fabState[fragment] ?: false) -> fab.hide()
@@ -72,6 +80,7 @@ class MainActivity : AppCompatActivity() {
 				replace(R.id.fragment_container, currentFragment)
 			}.commit()
 			supportFragmentManager.executePendingTransactions()
+			Log.d("PREFS", Settings.notifications.toString() + "-" + Settings.notify_before.toString())
 		}
 	}
 }
