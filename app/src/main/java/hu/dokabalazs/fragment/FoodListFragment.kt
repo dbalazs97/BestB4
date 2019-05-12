@@ -50,7 +50,7 @@ class FoodListFragment : Fragment() {
 			foodAdapter = FoodAdapter(foods)
 			foodAdapter.onItemClickListener = onItemClickListener
 			requireActivity().runOnUiThread {
-				food_item_list.apply {
+				food_item_list?.apply {
 					setHasFixedSize(true)
 					layoutManager = LinearLayoutManager(requireActivity())
 					adapter = foodAdapter

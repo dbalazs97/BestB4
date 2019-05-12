@@ -7,7 +7,7 @@ import android.support.v7.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
 import hu.dokabalazs.db.FoodDatabase
-import hu.dokabalazs.db.typeconverter.BitmapTypeConverter
+import hu.dokabalazs.notification.ExpiredFoodNotification
 import hu.dokabalazs.util.FragmentStore
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.content_main.*
@@ -17,10 +17,6 @@ class MainActivity : AppCompatActivity() {
 
 	private lateinit var currentFragment: Fragment
 
-	companion object {
-		const val REQUEST_IMAGE_CAPTURE = 1
-	}
-
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
 		setContentView(R.layout.activity_main)
@@ -29,14 +25,19 @@ class MainActivity : AppCompatActivity() {
 		// Initialize the database with a context
 		FoodDatabase.invoke(this@MainActivity)
 
-		BitmapTypeConverter.context = this
-
+		// Set food list onclick listener
 		FragmentStore.foodListFragment.onItemClickListener = {
 			changeFragment(FragmentStore.foodDetailFragment(it), backStack = true)
 		}
+
+		// Change to food list
 		changeFragment(FragmentStore.foodListFragment, backStack = false)
 
+		// Set FAB click listener
 		fab.setOnClickListener { changeFragment(FragmentStore.qrScannerFragment, backStack = true) }
+
+		// Initialize notifications
+		ExpiredFoodNotification.setNotifications(this, true)
 	}
 
 	override fun onCreateOptionsMenu(menu: Menu): Boolean {

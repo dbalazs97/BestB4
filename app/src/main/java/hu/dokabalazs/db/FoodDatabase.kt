@@ -5,12 +5,11 @@ import android.arch.persistence.room.Room
 import android.arch.persistence.room.RoomDatabase
 import android.arch.persistence.room.TypeConverters
 import android.content.Context
-import hu.dokabalazs.db.typeconverter.BitmapTypeConverter
 import hu.dokabalazs.db.typeconverter.DateTypeConverter
 import hu.dokabalazs.model.Food
 
 @Database(entities = [Food::class], version = 3, exportSchema = false)
-@TypeConverters(value = [DateTypeConverter::class, BitmapTypeConverter::class])
+@TypeConverters(value = [DateTypeConverter::class])
 abstract class FoodDatabase : RoomDatabase() {
 	abstract fun foodDao(): FoodDao
 
